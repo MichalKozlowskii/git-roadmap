@@ -9,7 +9,7 @@ A website you log in to with your github account. It makes it possible to create
   <li>Front end</li>
 </ul>
 
-#Technologies
+# Technologies
 <ul>
   <li>Python 3</li>
   <li>Django (web framework for python)</li>
