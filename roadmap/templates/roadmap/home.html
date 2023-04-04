@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My App - Homepage</title>
+	<title>Git-Roadmap</title>
 </head>
 <body>
-	<h1>Welcome to my homepage!</h1>
-	<p>This is the homepage for my awesome app.</p>
+	{% include 'roadmap/base_css.html' %}
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#">My Roadmaps</a></li>
+				<li><a href="#">Create New Roadmap</a></li>
+				<li class="right"><a href="#">Sign in with GitHub</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<h1>Git-Roadmap</h1>
+			<p>A better way to manage your Git projects.</p>
+			<a href="#" class="cta">Get started</a>
+		</section>
+	</main>
+
+	<footer>
+		<p>Copyright &copy; 2023 Git-Roadmap</p>
+	</footer>
 </body>
 </html>
