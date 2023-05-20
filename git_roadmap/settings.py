@@ -87,6 +87,10 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': '75b969e5cd381c35c4e9ebb2ac829a2e11145e53',
             'key': ''
         },
+        'SCOPE': [
+            'user',
+            'repo',
+        ],
     }
 }
 
