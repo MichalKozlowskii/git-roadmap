@@ -20,13 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '###'
+SECRET_KEY = 'django-insecure-xkpc3i+*(z^6s&2jjjnob4^^27n9n_j#hj2fn_rgc$$j$n7aiy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 2
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Application definition
 
@@ -37,7 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'roadmap'
 ]
 
@@ -49,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'git_roadmap.urls'
@@ -65,11 +74,23 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends'
+                'django.template.context_processors.request'
             ],
         },
     },
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'APP': {
+            'client_id': '1bb7c58d4d51031d48b5',
+            'secret': '75b969e5cd381c35c4e9ebb2ac829a2e11145e53',
+            'key': ''
+        },
+    }
+}
+
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'git_roadmap.wsgi.application'
 
@@ -124,14 +145,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
-    'django.contrib.auth.backends.ModelBackend'
-]
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'homepage'
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'homepage'
-SOCIAL_AUTH_GITHUB_KEY = '###'
-SOCIAL_AUTH_GITHUB_SECRET = '###'

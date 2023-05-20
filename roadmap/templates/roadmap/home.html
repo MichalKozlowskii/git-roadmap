@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,11 @@
 			<ul>
 				<li><a href="#">My Roadmaps</a></li>
 				<li><a href="#">Create New Roadmap</a></li>
-				<li class="right"><a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="right"><a href = "{% url 'account_logout' %}">Log out</a></li>
+                {% else %}
+				    <li class="right"><a href = "{% provider_login_url 'github' %}">Sign in with GitHub</a></li>
+                {% endif %}
 			</ul>
 		</nav>
 	</header>
