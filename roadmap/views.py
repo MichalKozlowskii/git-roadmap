@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
-import django.contrib.auth as auth
 from allauth.socialaccount.models import SocialAccount
+from .models import Repository, Roadmap
 import requests
+from roadmap.scripts import sync_repos
 
 
 # Create your views here.
@@ -10,13 +11,14 @@ import requests
 def homepage(request):
     return render(request, 'roadmap/home.html')
 
-def create_new_roadmap(request):
+def create_new_roadmap_subsite(request):
     username = SocialAccount.objects.get(user=request.user)
     url = f"https://api.github.com/users/{username}/repos"
     response = requests.get(url)
 
     if response.status_code == 200:
         repos = response.json()
+        sync_repos.sync(repos)
     else:
         repos = []
 
