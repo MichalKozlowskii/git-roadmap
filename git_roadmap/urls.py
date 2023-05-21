@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage, name='homepage'),
     path('accounts/', include('allauth.urls')),
-    path('create_new_roadmap/', views.create_new_roadmap, name='create_new_roadmap')
+    path('create_new_roadmap/', views.create_new_roadmap_subsite, name='create_new_roadmap_subsite'),
+    path('create_new_roadmap/<int:repository_id>/', views.create_new_roadmap, name='create_new_roadmap'),
 ]

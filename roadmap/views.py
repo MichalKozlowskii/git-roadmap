@@ -25,3 +25,18 @@ def create_new_roadmap_subsite(request):
     context = {"repos": repos}
 
     return render(request, 'roadmap/create_new_roadmap.html', context)
+
+def create_new_roadmap(request, repository_id):
+    repository = get_object_or_404(Repository, git_id=repository_id)
+
+    #if request.method == 'POST':
+        # Handle form submission and save the roadmap
+        # Retrieve form data, create roadmap instance, etc.
+        # Save the roadmap to the database
+
+        #return redirect('roadmap_detail', roadmap_id=new_roadmap.id)
+
+    context = {
+        'repository': repository,
+    }
+    return render(request, 'create_roadmap.html', context)
