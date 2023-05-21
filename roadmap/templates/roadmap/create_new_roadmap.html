@@ -15,9 +15,10 @@
     
     <div class="w3-sidebar w3-green w3-bar-block" style="width:10%; margin-top:3.3%;">
         <h3 class="w3-bar-item">Repositories</h3>
-        <a href="#" class="w3-bar-item w3-button">Link 1</a>
-        <a href="#" class="w3-bar-item w3-button">Link 2</a>
-        <a href="#" class="w3-bar-item w3-button">Link 3</a>
+
+        {% for repo in repos %}
+            <a href="#" class="w3-bar-item w3-button">{{ repo.name }}</a>
+        {% endfor %}
     </div>
 </body>
 </html>
