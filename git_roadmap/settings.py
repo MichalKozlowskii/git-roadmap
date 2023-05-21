@@ -95,6 +95,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIALACCOUNT_STORE_TOKENS = True
+
 LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'git_roadmap.wsgi.application'
@@ -105,8 +107,12 @@ WSGI_APPLICATION = 'git_roadmap.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gitroadmap',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
