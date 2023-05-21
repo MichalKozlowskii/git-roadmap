@@ -1,5 +1,6 @@
 {% load static %}
 {% load socialaccount %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,30 +8,17 @@
 	<link rel="stylesheet" href="{% static 'roadmap/style.css' %}">
 </head>
 <body>
-	<header>
-		<nav>
-			<ul>
-				<li><a href="#">My Roadmaps</a></li>
-				<li><a href="#">Create New Roadmap</a></li>
-                {% if request.user.is_authenticated %}
-                    <li class="right"><a href = "{% url 'account_logout' %}">Log out</a></li>
-                {% else %}
-				    <li class="right"><a href = "{% provider_login_url 'github' %}">Sign in with GitHub</a></li>
-                {% endif %}
-			</ul>
-		</nav>
-	</header>
-
-	<main>
-		<section class="hero">
-			<h1>Git-Roadmap</h1>
-			<p>A better way to manage your Git projects.</p>
-			<a href="#" class="cta">Get started</a>
-		</section>
-	</main>
-
-	<footer>
-		<p>Copyright &copy; 2023 Git-Roadmap</p>
-	</footer>
+    {% include 'navbar.html' %}
+    <main>
+        <section class="hero">
+            <h1>Git-Roadmap</h1>
+            <p>A better way to manage your Git projects.</p>
+            <a href="#" class="cta">Get started</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Copyright &copy; 2023 Git-Roadmap</p>
+    </footer>
 </body>
 </html>
