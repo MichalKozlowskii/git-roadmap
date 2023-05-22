@@ -7,16 +7,6 @@
     <title>Git-Roadmap</title>
     <link rel="stylesheet" href="{% static 'roadmap/style.css' %}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <style>
-        .container {
-            display: flex;
-            align-items: baseline;
-        }
-
-        .section {
-            margin-right: 10%;
-        }
-    </style>
 </head>
 <body>
     <div>
@@ -30,25 +20,17 @@
 
     <div style="margin-left:10%;">
         <div class="w3-container" style="padding-top:3.3%;">
-            <div class="container">
-                <div class="section">
-                    <p>Add milestone</p>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit">
-                    </form>
-                    <div>
-                        <p>Milestones: </p>
-                        {% for milestone in milestones %}
-                            <p>{{ milestone.name }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div>
-                    <p>wtf</p>
-                </div>
+            <p>Add milestone</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ milestone_form }}
+                <input type="submit" name="milestoneform">
+            </form>
+            <div>
+                <p>Milestones: </p>
+                {% for milestone in milestones %}
+                    <p>{{ milestone.name }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>

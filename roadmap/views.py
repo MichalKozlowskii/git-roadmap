@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from allauth.socialaccount.models import SocialAccount
-from .models import Repository, Milestone
+from .models import Repository, Milestone, Task
 import requests
 from .scripts import sync_repos
-from .forms import MilestoneForm
+from .forms import MilestoneForm, TaskForm
 
 
 # Create your views here.
@@ -31,17 +31,18 @@ def create_new_roadmap(request, repository_id):
     repository = get_object_or_404(Repository, git_id=repository_id)
     milestones = Milestone.objects.filter(repository=repository)
 
-    form = MilestoneForm()
+    milestone_form = MilestoneForm()
+
     context = {
-        'form' : form,
+        'milestone_form' : milestone_form,
         'milestones' : milestones,
         'repository': repository,
     }
 
     if request.method == 'POST':
-        form = MilestoneForm(request.POST)
-        if form.is_valid():
-            milestone = form.save(commit=False)
+        milestone_form = MilestoneForm(request.POST)
+        if milestone_form.is_valid():
+            milestone = milestone_form.save(commit=False)
             milestone.repository = repository
             milestone.save()
 
