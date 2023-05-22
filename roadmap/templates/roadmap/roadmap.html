@@ -37,15 +37,26 @@
             padding: 5px;
             margin-bottom: 5px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .task-done {
-            /* Remove the text-decoration property to remove the strikethrough effect */
+        .task-content {
+            flex-grow: 1;
         }
 
         .task-button {
-            margin-left: 10px;
+            background-color: rgba(46, 204, 113, 1); /* Green color with full alpha */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .task-button:hover {
+            background-color: rgba(46, 204, 113, 0.8); /* Slightly transparent green color */
         }
     </style>
 </head>
@@ -68,19 +79,20 @@
                         <div class="tasks">
                             {% for task in milestone.task_set.all %}
                                 <div class="task{% if task.isdone %}{% else %} task-done{% endif %}">
-                                    {{ task.name }}
-                                    {% if task.isdone %}✅{% endif %}
-                                    {% if task.isdone %}
-                                        <form method="post" action="{% url 'mark-task-undone' task.id %}">
-                                            {% csrf_token %}
-                                            <button class="task-button" type="submit">Mark as Undone</button>
-                                        </form>
-                                    {% else %}
-                                        <form method="post" action="{% url 'mark-task-done' task.id %}">
-                                            {% csrf_token %}
-                                            <button class="task-button" type="submit">Mark as Done</button>
-                                        </form>
-                                    {% endif %}
+                                    <div class="task-content">{{ task.name }} {% if task.isdone %} ✅ {% endif %}</div>
+                                    <div class="task-button-container">
+                                        {% if task.isdone %}
+                                            <form method="post" action="{% url 'mark-task-undone' task.id %}">
+                                                {% csrf_token %}
+                                                <button class="task-button" type="submit">Mark as Undone</button>
+                                            </form>
+                                        {% else %}
+                                            <form method="post" action="{% url 'mark-task-done' task.id %}">
+                                                {% csrf_token %}
+                                                <button class="task-button" type="submit">Mark as Done</button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
