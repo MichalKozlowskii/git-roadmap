@@ -17,7 +17,7 @@
         <h3 class="w3-bar-item">Repositories</h3>
 
         {% for repo in repos %}
-            <a href="{% url 'create_new_roadmap' repo.id %}" class="w3-bar-item w3-button">{{ repo.name }}</a>
+            <a href="{% url 'roadmaps' repo.id %}" class="w3-bar-item w3-button">{{ repo.name }}</a>
         {% endfor %}
     </div>
 </body>

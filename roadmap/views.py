@@ -73,14 +73,29 @@ def my_roadmaps_subsite(request):
 
     context = {"repos": repos}
 
-    return render(request, 'roadmap/create_new_roadmap.html', context)
+    return render(request, 'roadmap/my_roadmaps.html', context)
 
 def roadmap(request, repository_id):
     repository = get_object_or_404(Repository, git_id=repository_id)
     milestones = Milestone.objects.filter(repository=repository)
 
     context = {
-        'milestones' : milestones
+        'milestones' : milestones,
+        'repository' : repository,
     }
 
     return render(request, 'roadmap/roadmap.html', context)
+
+def mark_task_done(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.isdone = True
+    task.save()
+    repository_git_id = task.repository.git_id
+    return redirect(f'http://localhost:8000/roadmaps/{repository_git_id}/')
+
+def mark_task_undone(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.isdone = False
+    task.save()
+    repository_git_id = task.repository.git_id
+    return redirect(f'http://localhost:8000/roadmaps/{repository_git_id}/')

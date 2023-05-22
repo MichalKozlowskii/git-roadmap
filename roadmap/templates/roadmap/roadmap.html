@@ -1,0 +1,93 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Git-Roadmap</title>
+    <link rel="stylesheet" href="{% static 'roadmap/style.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .milestones-container {
+            display: flex;
+            height: 100%; /* Set the container height to occupy the entire space */
+        }
+
+        .milestone {
+            background-color: rgba(46, 204, 113, 0.3); /* Green color with low alpha */
+            color: white;
+            padding: 10px;
+            margin-right: 10px;
+            flex-basis: 0; /* Set the initial width of the rectangles to 0 */
+            flex-grow: 1;
+            border: 2px solid rgba(46, 204, 113, 1); /* Green color with full alpha */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .milestone-header {
+            font-weight: bold;
+        }
+
+        .task {
+            border: 2px solid rgba(46, 204, 113, 1); /* Green color outline with full alpha */
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-done {
+            /* Remove the text-decoration property to remove the strikethrough effect */
+        }
+
+        .task-button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        {% include 'navbar.html' %}
+    </div>
+    
+    <div class="w3-sidebar w3-green w3-bar-block" style="width:10%; margin-top:3.3%;">
+        <h3 class="w3-bar-item">Active: </h3>
+        <h3 class="w3-bar-item">{{ repository.name }}</h3>
+    </div>
+
+    <div style="margin-left:11%;">
+        <div class="w3-container" style="padding-top:3.8%; height: 100vh;"> <!-- Set a fixed height for the container -->
+            <div class="milestones-container">
+                {% for milestone in milestones %}
+                    <div class="milestone">
+                        <p class="milestone-header">{{ milestone.name }}</p>
+                        <div class="tasks">
+                            {% for task in milestone.task_set.all %}
+                                <div class="task{% if task.isdone %}{% else %} task-done{% endif %}">
+                                    {{ task.name }}
+                                    {% if task.isdone %}✅{% endif %}
+                                    {% if task.isdone %}
+                                        <form method="post" action="{% url 'mark-task-undone' task.id %}">
+                                            {% csrf_token %}
+                                            <button class="task-button" type="submit">Mark as Undone</button>
+                                        </form>
+                                    {% else %}
+                                        <form method="post" action="{% url 'mark-task-done' task.id %}">
+                                            {% csrf_token %}
+                                            <button class="task-button" type="submit">Mark as Done</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
