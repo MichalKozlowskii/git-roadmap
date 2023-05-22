@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from allauth.socialaccount.models import SocialAccount
-from .models import Repository, Roadmap
+from .models import Repository, Milestone
 import requests
-from roadmap.scripts import sync_repos
+from .scripts import sync_repos
+from .forms import MilestoneForm
 
 
 # Create your views here.
@@ -28,15 +29,20 @@ def create_new_roadmap_subsite(request):
 
 def create_new_roadmap(request, repository_id):
     repository = get_object_or_404(Repository, git_id=repository_id)
+    milestones = Milestone.objects.filter(repository=repository)
 
-    #if request.method == 'POST':
-        # Handle form submission and save the roadmap
-        # Retrieve form data, create roadmap instance, etc.
-        # Save the roadmap to the database
-
-        #return redirect('roadmap_detail', roadmap_id=new_roadmap.id)
-
+    form = MilestoneForm()
     context = {
+        'form' : form,
+        'milestones' : milestones,
         'repository': repository,
     }
-    return render(request, 'create_roadmap.html', context)
+
+    if request.method == 'POST':
+        form = MilestoneForm(request.POST)
+        if form.is_valid():
+            milestone = form.save(commit=False)
+            milestone.repository = repository
+            milestone.save()
+
+    return render(request, 'roadmap/create_roadmap.html', context)

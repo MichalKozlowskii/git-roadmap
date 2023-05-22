@@ -13,7 +13,6 @@ class Repository(models.Model):
 class Milestone(models.Model):
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    description = models.TextField()
 
     def __str__(self):
         return self.name
@@ -23,7 +22,6 @@ class Task(models.Model):
     milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
     isdone = models.BooleanField(default = False)
-    # Add other fields as needed
 
     def __str__(self):
         return self.name
