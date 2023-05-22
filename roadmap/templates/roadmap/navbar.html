@@ -4,7 +4,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="">My Roadmaps</a></li>
+            <li><a href="http://localhost:8000/roadmaps">My Roadmaps</a></li>
             <li><a href="http://localhost:8000/create_new_roadmap/">Create New Roadmap</a></li>
             {% if request.user.is_authenticated %}
                 <li class="right"><a href = "{% url 'account_logout' %}">Log out</a></li>

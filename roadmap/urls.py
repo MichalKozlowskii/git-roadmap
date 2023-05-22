@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.homepage),
     path('create_new_roadmap/', views.create_new_roadmap_subsite),
     path('create_new_roadmap/<int:repository_id>/', views.create_new_roadmap),
+    path('roadmaps/', views.my_roadmaps_subsite),
 ]
