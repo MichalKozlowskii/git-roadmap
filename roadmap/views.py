@@ -64,6 +64,9 @@ def create_new_roadmap(request, repository_id):
     return render(request, 'roadmap/create_roadmap.html', context)
 
 def my_roadmaps_subsite(request):
+    if not request.user.is_authenticated:
+        return render(request, 'roadmap/my_roadmaps.html')
+
     username = SocialAccount.objects.get(user=request.user)
     url = f"https://api.github.com/users/{username}/repos"
     response = requests.get(url)
