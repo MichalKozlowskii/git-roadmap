@@ -13,12 +13,18 @@
         {% include 'navbar.html' %}
     </div>
     
-    <div class="w3-sidebar w3-green w3-bar-block" style="width:10%; margin-top:3.3%;">
-        <h3 class="w3-bar-item">Repositories</h3>
+    {% if request.user.is_authenticated %}
+        <div class="w3-sidebar w3-green w3-bar-block" style="width:10%; margin-top:3.3%;">
+            <h3 class="w3-bar-item">Repositories</h3>
 
-        {% for repo in repos %}
-            <a href="{% url 'create_new_roadmap' repo.id %}" class="w3-bar-item w3-button">{{ repo.name }}</a>
-        {% endfor %}
-    </div>
+            {% for repo in repos %}
+                <a href="{% url 'create_new_roadmap' repo.id %}" class="w3-bar-item w3-button">{{ repo.name }}</a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            <h3 style="text-align:center; margin-top:15 %;">You need to log in!</h3>
+        </div>
+    {% endif %}
 </body>
 </html>

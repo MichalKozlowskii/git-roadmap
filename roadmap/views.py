@@ -13,6 +13,9 @@ def homepage(request):
     return render(request, 'roadmap/home.html')
 
 def create_new_roadmap_subsite(request):
+    if not request.user.is_authenticated: 
+        return render(request, 'roadmap/create_new_roadmap.html')
+
     username = SocialAccount.objects.get(user=request.user)
     url = f"https://api.github.com/users/{username}/repos"
     response = requests.get(url)
