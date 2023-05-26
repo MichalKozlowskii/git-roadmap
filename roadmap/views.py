@@ -105,3 +105,15 @@ def mark_task_undone(request, task_id):
     task.save()
     repository_git_id = task.repository.git_id
     return redirect(f'http://localhost:8000/roadmaps/{repository_git_id}/')
+
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    repository_git_id = task.repository.git_id
+    task.delete()
+    return redirect(f'http://localhost:8000/create_new_roadmap/{repository_git_id}/')
+
+def delete_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    repository_git_id = milestone.repository.git_id
+    milestone.delete()
+    return redirect(f'http://localhost:8000/create_new_roadmap/{repository_git_id}/')

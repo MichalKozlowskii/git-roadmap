@@ -28,4 +28,6 @@ urlpatterns = [
     path('roadmaps/<int:repository_id>/', views.roadmap, name='roadmaps'),
     path('mark-task-done/<int:task_id>/', views.mark_task_done, name='mark-task-done'),
     path('mark-task-undone/<int:task_id>/', views.mark_task_undone, name='mark-task-undone'),
+    path('delete-task/<int:task_id>/', views.delete_task, name='delete-task'),
+    path('delete-milestone/<int:milestone_id>/', views.delete_milestone, name='delete-milestone'),
 ]

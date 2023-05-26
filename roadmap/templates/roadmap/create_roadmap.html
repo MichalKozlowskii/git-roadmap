@@ -16,6 +16,21 @@
         .section {
             margin-right: 10%;
         }
+
+        .delete-button {
+            background-color: rgba(231, 76, 60, 1); /* Red color with full alpha */
+            color: white;
+            border: none;
+            padding: 1px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: rgba(231, 76, 60, 0.8); /* Slightly transparent red color */
+        }
     </style>
 </head>
 <body>
@@ -41,7 +56,22 @@
                     <div>
                         <p>Milestones: </p>
                         {% for milestone in milestones %}
-                            <p>{{ milestone.name }}</p>
+                            <div class="container">
+                                <p>{{ milestone.name }}:</p>
+                                <form action="{% url 'delete-milestone' milestone.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="delete-button" type="submit">Delete Milestone</button>
+                                </form>
+                            </div>
+                            {% for task in milestone.task_set.all %}
+                                <div class="container">
+                                    <p>-{{ task.name }}</p>
+                                    <form action="{% url 'delete-task' task.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button class="delete-button" type="submit">Delete Task</button>
+                                    </form>
+                                </div>
+                            {% endfor %}
                         {% endfor %}
                     </div>
                 </div>
@@ -52,11 +82,6 @@
                         {% csrf_token %}
                         {{ task_form }}
                         <input type="submit" name="taskform">
-
-                        <p>Tasks:</p>
-                        {% for task in tasks %}
-                            <p> {{ task.name }} - Milestone: {{ task.milestone.name }}</p>
-                        {% endfor %}
                     </form>
                 </div>
             </div>
