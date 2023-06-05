@@ -36,13 +36,13 @@ def create_new_roadmap(request, repository_id):
     tasks = Task.objects.filter(repository=repository)
 
     milestone_form = MilestoneForm()
-    task_form = TaskForm()
+    task_form = TaskForm(repository=repository)  # Pass the repository instance to the TaskForm
 
     context = {
-        'milestone_form' : milestone_form,
-        'milestones' : milestones,
-        'task_form' : task_form,
-        'tasks' : tasks,
+        'milestone_form': milestone_form,
+        'milestones': milestones,
+        'task_form': task_form,
+        'tasks': tasks,
         'repository': repository,
     }
 
