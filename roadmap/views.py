@@ -6,9 +6,6 @@ import requests
 from .scripts import sync_repos
 from .forms import MilestoneForm, TaskForm
 
-
-# Create your views here.
-
 def homepage(request):
     return render(request, 'roadmap/home.html')
 
@@ -36,7 +33,7 @@ def create_new_roadmap(request, repository_id):
     tasks = Task.objects.filter(repository=repository)
 
     milestone_form = MilestoneForm()
-    task_form = TaskForm(repository=repository)  # Pass the repository instance to the TaskForm
+    task_form = TaskForm(repository=repository)
 
     context = {
         'milestone_form': milestone_form,
@@ -48,7 +45,8 @@ def create_new_roadmap(request, repository_id):
 
     if request.method == 'POST':
         milestone_form = MilestoneForm(request.POST)
-        task_form = TaskForm(request.POST)
+        task_form = TaskForm(request.POST, repository=repository)
+
         if 'milestoneform' in request.POST:
             if milestone_form.is_valid():
                 milestone = milestone_form.save(commit=False)
@@ -62,6 +60,7 @@ def create_new_roadmap(request, repository_id):
                 task.save()
 
     return render(request, 'roadmap/create_roadmap.html', context)
+
 
 def my_roadmaps_subsite(request):
     if not request.user.is_authenticated:

@@ -7,9 +7,11 @@ class MilestoneForm(forms.ModelForm):
         fields = ['name']
 
 class TaskForm(forms.ModelForm):
-    def __init__(self, repository, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        repository = kwargs.pop('repository', None)
         super(TaskForm, self).__init__(*args, **kwargs)
-        self.fields['milestone'].queryset = Milestone.objects.filter(repository=repository)
+        if repository:
+            self.fields['milestone'].queryset = Milestone.objects.filter(repository=repository)
 
     class Meta:
         model = Task
