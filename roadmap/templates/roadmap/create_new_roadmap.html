@@ -20,6 +20,12 @@
                 <a href="{% url 'create_new_roadmap' repo.id %}" class="w3-bar-item w3-button">{{ repo.name }}</a>
             {% endfor %}
         </div>
+        
+    <div style="margin-left:45%;">
+        <div class="w3-container" style="padding-top:10%;">
+            Choose repository to create roadmap for
+        </div>
+    </div>
     {% else %}
         <div>
             <h3 style="text-align:center; margin-top:15%;">You need to sign in!</h3>
