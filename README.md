@@ -9,4 +9,5 @@ A website you log in to with your github account. It makes it possible to create
   <li>CSS</li>
 </ul>
 
+https://docs.google.com/presentation/d/1rTpkU-aTGf47OV28ud6KuIFRNRwcjjt6WrPMx3ucJKQ/edit?usp=sharing
 https://github.com/MichalKozlowskii/git-roadmap
