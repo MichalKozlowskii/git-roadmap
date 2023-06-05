@@ -70,7 +70,7 @@ main {
 }
 
 .cta:hover {
-    background-color: #c00;
+    background-color: green;
     cursor: pointer;
 }
 
