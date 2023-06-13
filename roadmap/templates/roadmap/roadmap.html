@@ -11,6 +11,7 @@
         .milestones-container {
             display: flex;
             height: 100%; /* Set the container height to occupy the entire space */
+            justify-content: space-between;
         }
 
         .milestone {
@@ -25,6 +26,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
+            flex: 1;
         }
 
         .milestone-header {
@@ -72,12 +74,12 @@
     </div>
 
     <div style="margin-left:11%;">
-        <div class="w3-container" style="padding-top:3.8%; height: 100vh;"> <!-- Set a fixed height for the container -->
+        <div class="w3-container" style="padding-top:3.8%;"> <!-- Set a fixed height for the container -->
             <div class="milestones-container">
                 {% for milestone in milestones %}
                     <div class="milestone">
                         <p class="milestone-header">{{ milestone.name }}</p>
-                        <div class="tasks">
+                        <div class="tasks" style="overflow: auto">
                             {% for task in milestone.task_set.all %}
                                 <div class="task{% if task.isdone %}{% else %} task-done{% endif %}">
                                     <div class="task-content">{{ task.name }} {% if task.isdone %} ✅ {% endif %}</div>
